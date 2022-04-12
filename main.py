@@ -34,8 +34,31 @@ for point in data:
         property_list.append(prop_dict)
     except:
         pass
+driver.close()
 
+form = "https://docs.google.com/forms/d/e/1FAIpQLSfys2v7qnXDY9YMNUs9NFohI1ZKjVi28yftEXTLxhfLt_7BIw/viewform"
+driver2 = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+driver2.get(form)
+for i in property_list:
 
-print(property_list[0]["address"])
+    time.sleep(1)
+    addr = driver2.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    addr.send_keys(i["address"])
+    time.sleep(1)
+    pric = driver2.find_element(By.XPATH,
+                                '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    pric.send_keys(i["price"])
+    time.sleep(1)
+    lnk = driver2.find_element(By.XPATH,
+                                '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    lnk.send_keys(i["link"])
+    time.sleep(1)
+    bttn = driver2.find_element(By.XPATH, '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span/span')
+    bttn.click()
+    time.sleep(1)
+    bak = driver2.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div/div[4]/a')
+    bak.click()
+
+driver2.close()
 
 
